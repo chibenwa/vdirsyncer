@@ -41,6 +41,9 @@ async def _assert_multistatus_success(r):
             st = int(parts[1])
         except (ValueError, IndexError):
             continue
+        if 400 <= st < 500:
+            dav_logger.debug(f"FAILURE inserting DAV entity")
+            continue
         if st < 200 or st >= 400:
             raise Error(f"Server error: {st}")
 
